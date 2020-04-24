@@ -32,4 +32,27 @@
 - 클라이언트/서버 모델   
 사용자 조작에 따라 요청을 전달하는 클라이언트와 해당 요청을 받아 처리하는 서버로 소프트웨어를 나누고, 복수의 컴퓨터 상에서 하나의 모델을 구현하는 시스템   
    
-# 2. SQL 
+# 2. SQL    
+
+1. DATABASE 생성  
+`CREATE DATABASE <이름>;`   
+`CREATE DATABASE TEST;`   
+   
+2. TABLE 생성
+```CREATE TABLE <이름> 
+( <열 이름1> <데이터타입> <열의 제약>, 
+  <열 이름2> <데이터타입> <열의 제약>,
+  <열 이름3> <데이터타입> <열의 제약>, 
+  ...
+  <이 table의 제약1>, <이 table의 제약2>, ...
+  );```   
+  ```CREATE TABLE TEST 
+(
+  id            CHAR(4)      NOT NULL,
+  name          VARCHAR(100) NOT NULL,
+  classify      VARCHAR(32)  NOT NULL,
+  price         INTEGER,
+  register_date DATE,
+  PRIMARY KEY(id)
+);```
+  
