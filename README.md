@@ -83,3 +83,12 @@ CREATE TABLE <이름>
 `SELECT * FROM <TABLE 명>;`   
 'SELECT * FROM test;`   
 *(이터리스크)는 모든열을 의미하는 메타문자   
+8. 검색 조건 지정  
+데이터 검색에는 열을 지정하는 방법과 행을 지정하는 방법이 있다.   
+행을 선택할 때는 WHERE, 열을 선택할 때는 SELECT 사용  
+- SELECT 열 지정   
+`SELECT <열1, 열2, ..> FROM <테이블 명>`   
+`SELECT name, address FROM test;`   
+- WHERE 행 지정   
+`SELECT <열1, 열2, ...> FROM <테이블 명> WHERE <조건식>;`   
+`SELECT * FROM test WHERE name='selly';`
