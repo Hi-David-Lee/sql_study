@@ -92,4 +92,18 @@ CREATE TABLE <이름>
 - WHERE 행 지정   
 *수치형 열을 제외한 문자열형은 싱글쿼트('')로 둘러싸 표기한다. 날짜시간형의 경우도 동일하다 연원일을 하이픈(-), 시분초를 콜론(:)으로 구분
 `SELECT <열1, 열2, ...> FROM <테이블 명> WHERE <조건식>;`   
-`SELECT * FROM test WHERE name='selly';`
+`SELECT * FROM test WHERE name='selly';`   
+
+- NULL 값 검색   
+` SELECT <열1, 열2, ...> FROM <테이블 명> WHERE <열> IS NULL;`   
+` SELECT * FROM test WHERE name IS NULL;`   
+
+- 비교 연산자   
+   - = : 좌변과 우변의 값이 같으면 참   
+   - <>: 좌변과 우변의 값이 같지 않을 경우 참   
+   - > : 좌변 값이 우변의 값보다 클 경우 참   
+   - < : 좌변의 값이 우변의 값보다 작을 경우 참   
+   - >=: 좌변의 값이 우변의 값보다 크거나 같을 경우 참   
+   - <=: 좌변의 값이 우변의 값보다 작거나 같을 경우 참   
+
+
