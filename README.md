@@ -38,15 +38,17 @@
 `CREATE DATABASE <이름>;`   
 `CREATE DATABASE TEST;`   
    
-2. TABLE 생성
-```CREATE TABLE <이름> 
+2. TABLE 생성   
+`CREATE TABLE <이름> 
 ( <열 이름1> <데이터타입> <열의 제약>, 
   <열 이름2> <데이터타입> <열의 제약>,
   <열 이름3> <데이터타입> <열의 제약>, 
   ...
   <이 table의 제약1>, <이 table의 제약2>, ...
-  );```   
-  ```CREATE TABLE TEST 
+  );`
+  
+  
+  `CREATE TABLE TEST 
 (
   id            CHAR(4)      NOT NULL,
   name          VARCHAR(100) NOT NULL,
@@ -54,5 +56,5 @@
   price         INTEGER,
   register_date DATE,
   PRIMARY KEY(id)
-);```
+);`
   
