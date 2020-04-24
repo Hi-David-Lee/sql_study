@@ -90,5 +90,6 @@ CREATE TABLE <이름>
 `SELECT <열1, 열2, ..> FROM <테이블 명>`   
 `SELECT name, address FROM test;`   
 - WHERE 행 지정   
+*수치형 열을 제외한 문자열형은 싱글쿼트('')로 둘러싸 표기한다. 날짜시간형의 경우도 동일하다 연원일을 하이픈(-), 시분초를 콜론(:)으로 구분
 `SELECT <열1, 열2, ...> FROM <테이블 명> WHERE <조건식>;`   
 `SELECT * FROM test WHERE name='selly';`
