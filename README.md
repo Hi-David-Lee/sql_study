@@ -7,11 +7,21 @@
 - SQL(Structured Query Language)   
 관계형 데이터베이스 관리 시스템(RDBMS)의 데이터를 관리하기 위해 설계된 특수 목적의 프로그래밍 언어   
    - DML   
-   Data Manipulation Language의 약자. 데이터베이스에 데이터를 추가/삭제/갱신 등의 데이터 조작에 사용
+   Data Manipulation Language의 약자. Table의 행을 검색하거나 변경하기 위한 것   
+   `SELECT`: Table 행을 검색   
+   `INSERT`: Table에 신규 행을 등록   
+   `DELETE`: Table에 행을 삭제
    - DDL   
-   Data Definition Language의 약자. 데이터를 정의하는 명령어, 데이터베이스는 데이터베이스 객체를 이용하여 데이터를 관리하는데, 이 같은 객체의 생성/삭제에 사용   
+   Data Definition Language의 약자.  데이터를 저장하는 DB 및 Table을 생성, 삭제하기 위한 것   
+   `CREATE`: DB or Table등을 작성   
+   `DROP`: DB or Table 등을 삭제   
+   `ALTER`: DB or Table 등의 구성 변경
    - DCL
-   Data Control Language의 약자. 데이터를 제어하는 명령어. 트랜잭션을 제어하는 명령과 데이터 접근 권한을 제어하는 명령 포함.      
+   Data Control Language의 약자. DB에서 처리한 변경 내용을 확정하거나 취소하기 위한 것이다. 또한 RDBMS 사용자에게 처리 권한을 부여하기도 한다.   
+   `COMMINT`: DB 변경 내용을 확정   
+   `ROLLBACK`: DB 변경 내용을 취소   
+   `GRANT`: 사용자에게 처리 권한을 부여   
+   `REVOKE`: 사용자에게 처리 권한을 제거   
 ![1](https://user-images.githubusercontent.com/47620799/80223458-484c0200-8683-11ea-8a21-e019b1e58f12.PNG)
 - 데이터베이스의 종류 
    - 계층형 데이터베이스: 폴더와 파일 등의 계층 구조로 데이터를 저장하는 방식   
@@ -21,4 +31,5 @@
    - 키-밸류 스토어(KVS): 키와 그에 대응하는 값(밸류)라는 단순한 형태의 데이터를 저장하는 데이터베이스 NoSQL이라는 슬로건으로부터 생겨난 데이터베이스로, 열 지향 데이터베이스라고도 부른다.   
 - 클라이언트/서버 모델   
 사용자 조작에 따라 요청을 전달하는 클라이언트와 해당 요청을 받아 처리하는 서버로 소프트웨어를 나누고, 복수의 컴퓨터 상에서 하나의 모델을 구현하는 시스템   
-
+   
+# 2. SQL 
