@@ -62,6 +62,15 @@ CREATE TABLE <이름>
   address      VARCHAR(100)  NOT NULL,
 );
 ```   
+데이터 타입   
+- INTEGER or INT: 정수를 나타냄   
+- CHARACTER or CHAR: 문자열형의 하나로 문자열을 저장 (길이)를 명시해야 함   
+- VARCHAR: 길이 255개까지의 문자 데이터 저장 CHAR과 동일하게 (길이)를 명시해야 함   
+- BLOB: 큰 덩어리의 문자 데이터   
+- DEC: DECIMAL의 약어, 십진수   
+- DATE: 날짜(시간은 다루지 않음)   
+- DATETIME or TIMESTAMP: 데이터 베이스 시스템에 따라 앞의 둘중 하나로 사용하며 날짜와 시간을 사용   
+- TIME: 시간만 사용
 4. TABLE 정보 확인   
 `DESC <Table 명>;`   
 `DESC test;`   
@@ -71,3 +80,4 @@ CREATE TABLE <이름>
 6. TABLE 데이터 입력   
 `INSERT INTO <TABLE 명> (열 이름1, 열 이름2, 열 이름3, ...) VALUES ('값1', '값2', '값3',...);`   
 `INSERT INTO test (name, birthday, address) VALUES ('david', '1991-01-06', 'SungNam, Korea');`   
+
