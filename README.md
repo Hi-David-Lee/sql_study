@@ -32,8 +32,7 @@
 - 클라이언트/서버 모델   
 사용자 조작에 따라 요청을 전달하는 클라이언트와 해당 요청을 받아 처리하는 서버로 소프트웨어를 나누고, 복수의 컴퓨터 상에서 하나의 모델을 구현하는 시스템   
    
-# 2. SQL    
-
+# 2. SQL(명령어 대소문자 구분 없음 구분을 위해 대문자로 기입)    
 1. DATABASE 생성  
 `CREATE DATABASE <이름>;`   
 `CREATE DATABASE test;`   
@@ -79,5 +78,8 @@ CREATE TABLE <이름>
 `DROP TABLE test;`   
 6. TABLE 데이터 입력   
 `INSERT INTO <TABLE 명> (열 이름1, 열 이름2, 열 이름3, ...) VALUES ('값1', '값2', '값3',...);`   
-`INSERT INTO test (name, birthday, address) VALUES ('david', '1991-01-06', 'SungNam, Korea');`   
-
+`INSERT INTO test (name, birthday, address) VALUES ('david', '1991-01-06', 'SungNam, Korea');` 
+7. DATABASED 데이터 읽기   
+`SELECT * FROM <TABLE 명>;`   
+'SELECT * FROM test;`   
+*(이터리스크)는 모든열을 의미하는 메타문자   
