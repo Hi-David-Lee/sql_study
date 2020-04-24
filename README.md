@@ -105,5 +105,45 @@ CREATE TABLE <이름>
    - `<` : 좌변의 값이 우변의 값보다 작을 경우 참   
    - `>=`: 좌변의 값이 우변의 값보다 크거나 같을 경우 참   
    - `<=`: 좌변의 값이 우변의 값보다 작거나 같을 경우 참   
+   
+9. 조건 조합   
+SELECT 명령을 사용해서 데이터베이스에서 데이터를 검색할 때 단순한 조건식을 넣으면 많은 결괏값이 반환되어 한눈에 알아보기 힘들기 때문에   
+2개 이상의 조건식을 조합해 검색하는 경우가 많다. 조합할 때는 `AND`, `OR`, `NOT` 3가지 방법을 사용한다.   
+- AND 조합   
+좌/우의 식 모두 참일 경우 AND 연산자는 참을 반환   
+`조건식1 AND 조건식2`   
+````
+CREATE TABLE test1  
+(no int not null auto_increment primary	key,
+ a     int, 
+ b     int, 
+ c     int,
+ d     int);
+ ```   
+ ```
+insert into test1 (a, b, c, d) values ( 2, 0, 1, 0);
+insert into test1 (a, b, c, d) values ( 1, 2, 0, 0);
+insert into test1 (a, b, c, d) values ( 0, 1, 1, 0);
+insert into test1 (a, b, c, d) values ( 1, 0, 0, 0);
+insert into test1 (a, b, c, d) values ( 1, 0, 0, 1);
+insert into test1 (a, b, c, d) values ( 2, 0, 2, 0);
+insert into test1 (a, b, c, d) values ( 5, 0, 2, 2);
+insert into test1 (a, b, c, d) values ( 4, 2, 2, 0);
+insert into test1 (a, b, c, d) values ( 3, 0, 0, 1);
+ ```
+ `SELECT * FROM test1 WHERE a<>0 AND b <>0;`   
+ - OR 조합   
+ 좌/우의 식 어느 쪽이든 조건을 만족하면 결과는 참   
+ `조건식1 OR 조건식2`   
+ `SELECT * FROM test1 WHERE a<>0 OR c <>0;`   
+ - AND 와 OR 조합하여 사용하기   
+ `SELECT * FROM test1 WHERE a=1 OR a=2 AND b=1 OR b=2;`   
+ *OR보다 AND의 우선순위가 높기 떄문에 a=2 AND b=1이 먼저 계산된다. 괄호로 나타내면 아래와 같다.   
+ `WHERE a=1 OR (a=2 AND b=1) OR b=2`   
+- NOT 조합   
+NOT 연산자는 오른쪽에만 항목을 지정하는 '단항 연산자', 오른쪽에 지정한 조건식의 반대 값을 반환한다.    
+`SELECT * FROM test1 WHERE NOT(a<>0 OR b=2);`   
+
+
 
 
