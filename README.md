@@ -55,7 +55,7 @@ CREATE TABLE <이름>
   
   ```
   CREATE TABLE test 
-(
+( no           INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   name         VARCHAR(10)  NOT NULL,
   birthday     DATE NOT NULL,
   address      VARCHAR(100)  NOT NULL,
