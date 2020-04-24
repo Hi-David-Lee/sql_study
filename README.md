@@ -36,25 +36,38 @@
 
 1. DATABASE 생성  
 `CREATE DATABASE <이름>;`   
-`CREATE DATABASE TEST;`   
+`CREATE DATABASE test;`   
    
-2. TABLE 생성   
-`CREATE TABLE <이름> 
+2. DATABASE 사용   
+`USE <DB 명>`   
+`USE test;`
+   
+3. TABLE 생성   
+```
+CREATE TABLE <이름> 
 ( <열 이름1> <데이터타입> <열의 제약>, 
   <열 이름2> <데이터타입> <열의 제약>,
   <열 이름3> <데이터타입> <열의 제약>, 
   ...
   <이 table의 제약1>, <이 table의 제약2>, ...
-  );`
+  );
+  ```
   
   
-  `CREATE TABLE TEST 
+  ```
+  CREATE TABLE test 
 (
-  id            CHAR(4)      NOT NULL,
-  name          VARCHAR(100) NOT NULL,
-  classify      VARCHAR(32)  NOT NULL,
-  price         INTEGER,
-  register_date DATE,
-  PRIMARY KEY(id)
-);`
-  
+  name         VARCHAR(10)  NOT NULL,
+  birthday     DATE NOT NULL,
+  address      VARCHAR(100)  NOT NULL,
+);
+```   
+4. TABLE 정보 확인   
+`DESC <Table 명>;`   
+`DESC test;`   
+5. TABLE 삭제   
+`DROP TABLE <Table 명>;`   
+`DROP TABLE test;`   
+6. TABLE 데이터 입력   
+`INSERT INTO <TABLE 명> (열 이름1, 열 이름2, 열 이름3, ...) VALUES ('값1', '값2', '값3',...);`   
+`INSERT INTO test (name, birthday, address) VALUES ('david', '1991-01-06', 'SungNam, Korea');`   
