@@ -150,6 +150,24 @@ NOT 연산자는 오른쪽에만 항목을 지정하는 '단항 연산자', 오�
 = 연산자로 검색할 경우에는 열 값이 완전히 일치할 때 참이 된다. LIKE를 사용하면 열 값이 부분적으로 일치하는 경우에도 참이 된다.   
 패턴을 정의할 때는 `%`와 `_`의 메타문자(와일드카드라고도 불림)를 사용   
 `%`는 임의의 문자열을 의미, `_`는 임의의 문자 하나를 의미   
+```
+CREATE TABLE test2   (no int not null auto_increment primary key,  text varchar(100));
+insert into test2 (text) values ( 'SQL은 RDBMS를 조작하는 언어이다.');
+insert into test2 (text) values ( 'LIKE에서는 메타문자 %와_를 사용할 수 있다.');
+insert into test2 (text) values ( 'LIKE는 SQL에서 사용할 수 있는 술어 중 하나이다.');
+```   
+- 문자열 SQL을 포함하는 행을 패턴 매칭으로 검색   
+`SELECT * FROM test2 WHERE text LIKE 'SQL%';`  
+3번째 행에도 SQL이 있는데 검색되지 않았다.   
+`SQL%`: 전방일치(SQL은 RDBMS를...), `%SQL%`: 중간일치(LIKE는 SQL에서 사용..), `%SQL`: 후방일치(입문 SQL)   
+- LIKE로 % 검색   
+test2의 두번째 행은 데이터 안에 `%`와 `_`를 포함하는데 해당 경우는 이스케이프(\)를 사용한다.   
+`SELECT * FROM test2 WHERE text LIKE '%\%%';`   
+-문자열 상수 '의 이스케이프   
+메타문자와 같이 문자열 상수를 검색할 때도 같은 문제가 발생한다.   
+문자열 상수는 '문자열'과 같이 '로 둘러싸 표기한다. 예를들어 'It's'라는 문자열을 문자열 상수로 표기하면   
+`'It''s'`   
+
 
 
 
