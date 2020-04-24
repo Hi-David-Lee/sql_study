@@ -112,15 +112,16 @@ SELECT 명령을 사용해서 데이터베이스에서 데이터를 검색할 �
 - AND 조합   
 좌/우의 식 모두 참일 경우 AND 연산자는 참을 반환   
 `조건식1 AND 조건식2`   
-````
+```
 CREATE TABLE test1  
 (no int not null auto_increment primary	key,
  a     int, 
  b     int, 
  c     int,
  d     int);
- ```   
- ```
+```   
+ 
+```
 insert into test1 (a, b, c, d) values ( 2, 0, 1, 0);
 insert into test1 (a, b, c, d) values ( 1, 2, 0, 0);
 insert into test1 (a, b, c, d) values ( 0, 1, 1, 0);
@@ -130,7 +131,7 @@ insert into test1 (a, b, c, d) values ( 2, 0, 2, 0);
 insert into test1 (a, b, c, d) values ( 5, 0, 2, 2);
 insert into test1 (a, b, c, d) values ( 4, 2, 2, 0);
 insert into test1 (a, b, c, d) values ( 3, 0, 0, 1);
- ```
+```
  `SELECT * FROM test1 WHERE a<>0 AND b <>0;`   
  - OR 조합   
  좌/우의 식 어느 쪽이든 조건을 만족하면 결과는 참   
