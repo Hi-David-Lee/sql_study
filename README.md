@@ -172,13 +172,60 @@ SELECT 명령의 ORDER BY를 사용하여 정렬(검색 조건이 필요없는 �
 `SELECT 열명 FROM 테이블명 WHERE 조건식 ORDER BY 열명`   
 
 ```
-create table test3 ( name varchar(10) not null, age int not null, address varchar(50) not null);
-insert into test3 (name, age, address) values ('A', 34, 'Daegu, Korea');
-insert into test3 (name, age, address) values ('B', 28, 'Seoul, Korea');
-insert into test3 (name, age, address) values ('C', 18, 'Busan, Korea');
-insert into test3 (name, age, address) values ('D', 21, 'Daegu, Korea');
-```
+CREATE TABLE test3 ( name varchar(10) not null, age int not null, address varchar(50) not null);
+INSERT INTO test3 (name, age, address) VALUES ('A', 34, 'Daegu, Korea');
+INSERT INTO test3 (name, age, address) VALUES ('B', 28, 'Seoul, Korea');
+INSERT INTO test3 (name, age, address) VALUES ('C', 18, 'Busan, Korea');
+INSERT INTO test3 (name, age, address) VALUES ('D', 21, 'Daegu, Korea');
+SELECT * FROM test3;
+```   
+- age 열로 정렬하기   
+`SELECT * FROM test3 ORDER BY age;`   
 
+- 내림차순 정렬   
+`SELECT <열명> FROM <테이블명> ORDER BY <열명> DESC`   
+`SELECT * FROM test3 ORDER BY age DESC;`   
+- 오름차순 정렬   
+`SELECT <열명> FROM <테이블명> ORDER BY <열명> ASC`   
+`SELECT * FROM test3 ORDER BY age ASC;`   
+   
+- 복수열 정렬   
+`SELECT <열명> FROM <테이블명> ORDER BY <열명1, 열명2, ...>`   
+```
+CREATE TABLE test4 (a int, b int, c int);
+INSERT INTO test4 (a, b, c) VALUES (1, 1, 3);
+INSERT INTO test4 (a, b, c) VALUES (1, 3, 1);
+INSERT INTO test4 (a, b, c) VALUES (1, 2, 2);
+INSERT INTO test4 (a, b, c) VALUES (2, 1, 1);
+INSERT INTO test4 (a, b, c) VALUES (3, 2, 1);
+```   
+`SELECT * FROM test4 ORDER BY a;`   
+`SELECT * FROM test4 ORDER BY b;`   
+`SELECT * FROM test4 ORDER BY a, b;`   
+`SELECT * FROM test4 ORDER BY b, a;`   
+- 정렬 방법 지정   
+`SELECT <열명> FROM <테이블명> ORDER BY <열명1<ASC/DESC>, 열명2<ASC/DESC>, ...>`   
+`SELECT * FROM test4 ORDER BY a ASC, b DESC`   
+- NULL 값 정렬   
+MYSQL의 경우 NULL 값은 가장 작은 값으로 취급해 ASC(오름차순)에서는 가장 먼저, DESC(내림차순)에서는 가장 나중에 표시   
+12. 결과 행 제한   
+SELECT 명령에서 결괏값으로 반환되는 행을 제한할 수 있음   
+`SELECT <열명> FROM <테이블명> LIMIT <행수> (OFFSET<시작행>)`   
+```
+CREATE TABLE test5  
+(no int not null auto_increment primary key, a int, b int);
+INSERT INTO test4 (a, b) VALUES (1, 1);
+INSERT INTO test4 (a, b) VALUES (1, 3);
+INSERT INTO test4 (a, b) VALUES (1, 2);
+INSERT INTO test4 (a, b) VALUES (2, 1);
+INSERT INTO test4 (a, b) VALUES (3, 2); 
+```   
+`SELECT * FROM test5 LIMIT 3;`   
+`SELECT * FROM test5 LIMIT 2 OFFSET 1;`   
+`SELECT * FROM test5 LIMIT 3 OFFSET 2;`   
+- 정렬후 제한   
+`SELECT * FROM test5 ORDER BY a DESC LIMIT 4;`   
+`SELECT * FROM test5 ORDER BY a DESC LIMIT 4 OFFSET 1;`   
 
 
 
