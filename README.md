@@ -171,6 +171,13 @@ test2의 두번째 행은 데이터 안에 `%`와 `_`를 포함하는데 해당 
 SELECT 명령의 ORDER BY를 사용하여 정렬(검색 조건이 필요없는 경우에는 WHERE를 생략)   
 `SELECT 열명 FROM 테이블명 WHERE 조건식 ORDER BY 열명`   
 
+```
+create table test3 ( name varchar(10) not null, age int not null, address varchar(50) not null);
+insert into test3 (name, age, address) values ('A', 34, 'Daegu, Korea');
+insert into test3 (name, age, address) values ('B', 28, 'Seoul, Korea');
+insert into test3 (name, age, address) values ('C', 18, 'Busan, Korea');
+insert into test3 (name, age, address) values ('D', 21, 'Daegu, Korea');
+```
 
 
 
