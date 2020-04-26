@@ -291,3 +291,13 @@ INSERT INTO test7 (price, quantity, unit) VALUES (500, 7, 'KG');
 - CHARACTER_LENTH   
 문자열의 길이를계산해 돌려주는 함수 
 15. 날짜 연산   
+- 시스템 날짜   
+컴퓨터에는 반드시 시계가 내장되어 있다. 네트워크나 주변기기와 데이터 통신을 하기 위해서는 시간을 정확하게 측정할 필요가 있다.   
+표준 SQL에서는 `CURRENT_TIMESTAMP`의 함수를 사용한다.   
+`SELECT CURRENT_TIMESTAMP;`   
+- 날짜의 덧셈과 뺄셈   
+날짜 시간형 데이터는 기간형 수치데이터와 덧셈 및 뺼셈을 할 수 있다.   
+날짜 시간형 데이터에 기간형 수치데이터를 더하거나 빼면 날짜 시간형 데이터가 반환된다.   
+`SELECT CURRENT_DATE + INTERVAL 1 DAY;`: 날짜를 연산해 시스템 날짜의 1일 후를 검색   
+`SELECT CURRENT_DATE - INTERVAL 1 DAY;`: 날짜를 연산해 시스템 날짜의 1일 전을 검색   
+16. CASE 문으로 데이터 변환 
