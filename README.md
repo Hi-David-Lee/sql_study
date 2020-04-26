@@ -378,7 +378,7 @@ UPDATE test9 SET a=1 WHERE no=3;
 SQL은 데이터베이스라 불리는 데이터의 집합을 다루는 언어로 집합의 개수나 합계가 궁금하다면 집계함수를 사용하여 간단하게 구할수 있다.   
 대표적인 집계 함수는 아래와 같이 5개를 꼽을 수 있다.   
 `COUNT`, `SUM`, `AVG`, `MIN`, `MAX`   
--COUNT
+- COUNT
 행 개수 구하기   
 ```
 CREATE TABLE test10  
@@ -395,12 +395,15 @@ INSERT INTO test10 (a) VALUES (21);
 -SUM   
 합계   
 `SELECT SUM(a) FROM test10;`   
--AVG   
+- AVG   
 평균   
 `SELECT AVG(a) FROM test10;`   
 `SELECT AVG(CASE WHEN a IS NULL THEN 0 ELSE a END) AS avgnull0 FROM test10;`   
--MIN, MAX   
+- MIN, MAX   
 최솟값, 최댓값   
 `SELECT MIN(a), MAX(a) FROM test10;`   
+- 그룹화   
+`GROUP BY` 구를 사용하여 집계 함수로 넘겨줄 집합을 그룹으로 나눈다. 이와 같은 그룹화를 통해 집계함수의 활용범위를 넓힐수 있다.   
+
 
 
