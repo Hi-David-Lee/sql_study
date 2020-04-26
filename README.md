@@ -300,4 +300,22 @@ INSERT INTO test7 (price, quantity, unit) VALUES (500, 7, 'KG');
 날짜 시간형 데이터에 기간형 수치데이터를 더하거나 빼면 날짜 시간형 데이터가 반환된다.   
 `SELECT CURRENT_DATE + INTERVAL 1 DAY;`: 날짜를 연산해 시스템 날짜의 1일 후를 검색   
 `SELECT CURRENT_DATE - INTERVAL 1 DAY;`: 날짜를 연산해 시스템 날짜의 1일 전을 검색   
-16. CASE 문으로 데이터 변환 
+16. CASE 문으로 데이터 변환   
+RDBMS에 준비된 함수를 사용해 데이터를 특정 형태로 변환하는 경우도 있지만, 임의의 조건에 따라 독자적으로 변환 처리를 지정해 데이터를 변환하고 싶은 경우도 있다.(EX) NULL 값을 0으로 간주하여 계산 등) 이때, CASE 문을 사용한다.   
+```
+CASE WHEN <조건식1> THEN <식1> 
+(WHEN <조건식 2> THEN <식2> ...)
+(ELSE 식3)
+END
+```
+```
+CREATE TABLE test8  
+(no int not null auto_increment primary key, a int);
+INSERT INTO test8 (a) VALUES (NULL);
+INSERT INTO test8 (a) VALUES (1);
+INSERT INTO test8 (a) VALUES (3);
+INSERT INTO test8 (a) VALUES (5);
+INSERT INTO test8 (a) VALUES (NULL);
+```   
+`SELECT a, CASE WHEN a IS NULL THEN 0 ELSE a END "a(null=0)" FROM test8;`   
+- COALESCE   
