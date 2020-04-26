@@ -81,7 +81,7 @@ CREATE TABLE <이름>
 `INSERT INTO test (name, birthday, address) VALUES ('david', '1991-01-06', 'SungNam, Korea');` 
 7. DATABASED 데이터 읽기   
 `SELECT * FROM <TABLE 명>;`   
-'SELECT * FROM test;`   
+`SELECT * FROM test;`   
 *(이터리스크)는 모든열을 의미하는 메타문자   
 8. 검색 조건 지정  
 데이터 검색에는 열을 지정하는 방법과 행을 지정하는 방법이 있다.   
@@ -318,4 +318,89 @@ INSERT INTO test8 (a) VALUES (5);
 INSERT INTO test8 (a) VALUES (NULL);
 ```   
 `SELECT a, CASE WHEN a IS NULL THEN 0 ELSE a END "a(null=0)" FROM test8;`   
+CASE 문에는 2개의 구문이 있다. 검색 CASE와 단순 CASE의 두 개 구문으로 나눌 수 있다.   
+검색 CASE : `CASE WHEN <조건식> THEN <식>`   
+단순 CASE : `CASE 식1 WHEN 식2 THEN 식3 ... END`   
+성별 코드 변환하기 검색, 단순 CASE   
+```
+CREATE TABLE test9  
+(no int not null auto_increment primary key, a int);
+INSERT INTO test9 (a) VALUES (1);
+INSERT INTO test9 (a) VALUES (1);
+INSERT INTO test9 (a) VALUES (2);
+INSERT INTO test9 (a) VALUES (2);
+INSERT INTO test9 (a) VALUES (1);
+INSERT INTO test9 (a) VALUES (null);
+```   
+```
+검색 CASE
+SELECT a As "code",
+CASE 
+ WHEN a=1 THEN 'man'
+ WHEN a=2 THEN 'woman'
+ ELSE '?'
+END AS "sex" FROM test9;
+```
+```
+단순 CASE
+SELECT a AS "code",
+CASE a
+ WHEN 1 THEN 'man'
+ WHEN 2 THEN 'woamn'
+ ELSE 'NONE'
+END AS "sex" FROM test9;
+```
+ELSE를 생략하면 ELSE NULL이 된다. 따라서 ELSE를 생략하지 않고 지정하는 것이 좋다.   
 - COALESCE   
+NULL 값을 변환하는 경우라면 `COALESCE`를 사용하는 편이 더 쉽다.해담 함수는 여러 개의 함수를 지정할 수 있다.   
+`SELECT a, COALESCE(a,0) FROM test8;`   
+17. DELETE   
+DB의 테이블에서 행을 삭제하기 위해서 `DELETE` 명령 사용한다.   
+`DELETE FROM <테이블명> WHERE <조건식>;`   
+- 물리삭제와 논리삭제   
+데이터베이스에서 데이터를 삭제하는 방법은 용도에 따라 크게 물리삭제와 논리삭제의 두 가지로 나뉜다.   
+하지만, 물리삭제와 논리삭제는 전용 SQL 명령이 따로 존재하지 않다. 해당 내용은 시스템 설계 분야에 관한 것으로, 시스템을 구축할 때   
+자주 사용하는 말이다.   
+먼저, 물리 삭제는 SQL의 `DELETE` 명령을 사용해 직접 데이터를 삭제하는 방식으로 삭제 대상 데이터는 필요없는 데이터이므로 `DELETE` 명령을   
+실행해 테이블에 삭제하는 방식 (예를 들어 SNS와 같은 사용 자의 개인 정보를 다루는 시스템에서 회원탈퇴와 같은 경우에 사용)   
+논리 삭제의 경우, 테이블에 '삭제플레그'와 같은 열을 미리 준비해 실제로 행을 삭제하는 대신, `UPDATE` 명령을 사용해 삭제 플래그의 값을   
+유효하게 갱신해두자는 발상의 방식으로 실제 테이블 안에 데이터는 남아있지만, 참조할 때에는 삭제플래그가 삭제로 설정된 행을 제외하는   
+`SELECT` 명령을 실행한다. 결과적으로는 해당 행이 삭제된 것처럼 보인다.   
+(예를 들어 쇼핑몰의 사용자의 주문취소 같은 경우에 사용하여 주문 관련 통계를 낼 때 유용하게 사용)   
+18. UPDATE   
+DB의 테이블에서 저장되어 있는 값을 갱신하려면 `UPDATE` 명령을 사용한다.   
+`UPDATE <테이블명> SET <열1 = 값1, 열2 = 값2,...> WHERE <조건식>;`   
+```
+SELECT * from test9;
+UPDATE test9 SET a=1 WHERE no=3;
+```
+18. 집계와 서브쿼리   
+SQL은 데이터베이스라 불리는 데이터의 집합을 다루는 언어로 집합의 개수나 합계가 궁금하다면 집계함수를 사용하여 간단하게 구할수 있다.   
+대표적인 집계 함수는 아래와 같이 5개를 꼽을 수 있다.   
+`COUNT`, `SUM`, `AVG`, `MIN`, `MAX`   
+-COUNT
+행 개수 구하기   
+```
+CREATE TABLE test10  
+(no int not null auto_increment primary key, a int);
+INSERT INTO test10 (a) VALUES (10);
+INSERT INTO test10 (a) VALUES (5);
+INSERT INTO test10 (a) VALUES (7);
+INSERT INTO test10 (a) VALUES (3);
+INSERT INTO test10 (a) VALUES (15);
+INSERT INTO test10 (a) VALUES (21);
+```   
+`SELECT COUNT(*) FROM test10;`   
+`SELECT COUNT(*) FROM test10 WHERE a>=10;`   
+-SUM   
+합계   
+`SELECT SUM(a) FROM test10;`   
+-AVG   
+평균   
+`SELECT AVG(a) FROM test10;`   
+`SELECT AVG(CASE WHEN a IS NULL THEN 0 ELSE a END) AS avgnull0 FROM test10;`   
+-MIN, MAX   
+최솟값, 최댓값   
+`SELECT MIN(a), MAX(a) FROM test10;`   
+
+
