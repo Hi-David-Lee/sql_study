@@ -226,7 +226,68 @@ INSERT INTO test4 (a, b) VALUES (3, 2);
 - 정렬후 제한   
 `SELECT * FROM test5 ORDER BY a DESC LIMIT 4;`   
 `SELECT * FROM test5 ORDER BY a DESC LIMIT 4 OFFSET 1;`   
-
-
-
-
+13. 수치연산   
+SQL은 데이터베이스를 조작하는 언어이지만 컴퓨터를 조작하는 어너이기도 한 만큼 기본적으로 계산 기능을 포함한다.    
+- 사칙연산   
+`+`:덧셈   
+`-`:뺄셈   
+`*`:곱셈   
+`/`:나눗셈   
+`%`:나머지   
+- 연산자의 우선 순위   
+1순위: `*`, `/`, `%`   
+2순위: `+`, `-`   
+`1-2+3`: 우선 순위가 같다면 왼쪽에서 오른쪽으로 계산   
+`1+(2*3)`: `+`보다 `*`의 우선 우선 순위가 높으므로 `*`부터 계산   
+- SELECT 구로 연산하기   
+`SELECT <식1, 식2, ...> FROM <테이블명>`   
+```
+CREATE TABLE test6  
+(no int not null auto_increment primary key, price int, quantity int);
+INSERT INTO test6 (price, quantity) VALUES (1000, 10);
+INSERT INTO test6 (price, quantity) VALUES (2000, 8);
+INSERT INTO test6 (price, quantity) VALUES (1500, 11);
+INSERT INTO test6 (price, quantity) VALUES (3100, 6);
+INSERT INTO test6 (price, quantity) VALUES (500, 7);
+```
+`SELECT *, price*quantity FROM test6;`
+- 열의 별명   
+SELECT 결과에서 price * quantity라고 명명된 열이 금액을 계산한 부분인데 해당 price * quantity 같이 열 이름이 길고 알아보기 어려운 경우   
+별명(alias)을 붙여 열명을 재지정할 수 있다.   
+`SELECT <식1, 식2, ...> AS <별명> FROM <테이블 명>;`   
+`SELECT *, price*quantity AS amount FROM test6;`   
+`SELECT *, price*quantity 'amount' FROM test6;`: AS를 생략할 수 있다.   
+데이터베이스 객체명 = "객체명", 문자열 상수 = '상수'   
+- WHERE 구에서 계산, 검색하기   
+ex)WHERE 구에서 금액을 계산하고 10000원 이상인 행 검색하기   
+`SELECT*, price*quantity AS amount FROM test6 WHERE price*quantity >=10000;`   
+- NULL 값의 연산   
+SQL에서 NULL 값은 0이 아닌 NULL이다. `NULL+1`, `NULL*2`, `NULL/3` 등 모든 연산의 결과는 NULL이다.   
+-ORDER BY 구에서의 연산   
+`SELECT*, price*quantity AS amount FROM test6 ORDER BY (price*quantity) or (amount) DESC;`: 내림차순 정렬 연산식이나 별명 모두 사용가능   
+`SELECT*, price*quantity AS amount FROM test6 ORDER BY (price*quantity) or (amount) ASC;`: 올림차순 정렬 연산식이나 별명 모두 사용가능   
+14. 문자열 연산   
+-문자열 결합   
+`+`: 문자열 결합, SQL Sever에서 사용   
+`||`: 문자열 결합, Oracle, DB2, PostgreSQL에서 사용   
+`CONCAT`: 문자열 결합, Mysql에서 사용   
+```
+CREATE TABLE test7  
+(no int not null auto_increment primary key, price int, quantity int, unit varchar(10));
+INSERT INTO test7 (price, quantity, unit) VALUES (1000, 10, '개');
+INSERT INTO test7 (price, quantity, unit) VALUES (2000, 8, '캔');
+INSERT INTO test7 (price, quantity, unit) VALUES (1500, 11, '묶음');
+INSERT INTO test7 (price, quantity, unit) VALUES (3100, 6, '봉지');
+INSERT INTO test7 (price, quantity, unit) VALUES (500, 7, 'KG');
+```   
+`SELECT CONCAT(quantity, unit) FROM test7;`   
+- SUBSTRING   
+`SUBSTRING`함수는 문자열의 일부분을 계산해서 반환해주는 함수   
+`SUBSTRING('20190121001',1, 4);`: 2019      
+`SUBSTRING('20190121001',5, 2);`: 01   
+- TRIM   
+문자열의 앞뒤로 여분의 스페이스가 있을 경우 이를 제거해주는 함수로 문자열 도중에 존재하는 스페이스는 제거되지않는다.   
+`TRIM('ABC    ')`='ABC'   
+- CHARACTER_LENTH   
+문자열의 길이를계산해 돌려주는 함수 
+15. 날짜 연산   
