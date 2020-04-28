@@ -392,7 +392,7 @@ INSERT INTO test10 (a) VALUES (21);
 ```   
 `SELECT COUNT(*) FROM test10;`   
 `SELECT COUNT(*) FROM test10 WHERE a>=10;`   
--SUM   
+- SUM   
 합계   
 `SELECT SUM(a) FROM test10;`   
 - AVG   
@@ -404,6 +404,8 @@ INSERT INTO test10 (a) VALUES (21);
 `SELECT MIN(a), MAX(a) FROM test10;`   
 - 그룹화   
 `GROUP BY` 구를 사용하여 집계 함수로 넘겨줄 집합을 그룹으로 나눈다. 이와 같은 그룹화를 통해 집계함수의 활용범위를 넓힐수 있다.   
+`SELECT * FROM <테이블명> GROUP BY <열1, 열2, ..>`   
+
 
 
 
