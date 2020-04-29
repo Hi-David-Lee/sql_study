@@ -486,11 +486,95 @@ SELECT MIN(a) FROM test12;
 `CREATE INDEX` , `DROP INDEX`   
 `CREATE INDEX <인덱스명> ON <테이블명> (열 명1, 열명2, 열명3,...);`   
 `DROP INDEX <인덱스명> ON <테이블명>;`   
-
-
-
-
-
-
+20. 뷰 작성과 객체   
+뷰는 `SELECT` 명령을 기록하는 데이터베이스 객체, 뷰는 테이블처럼 취급할 수 있지만 실체가 존재하지 않는다는 의미로 가상테이블이라 불리기도 함   
+`CREATE VIEW <뷰명> AS SELECT <명령>`   
+`CREATE VIEW viewtest AS SELECT * FROM test11;`   
+`SELECT * FROM viewtest;`   
+`DROP VIEW <뷰명>`   
+`DROP VIEW viewtest;`   
+21. 복수의 테이블 다루기   
+- 집합연산   
+`UNION`: 합집합   
+```
+SELECT * FROM test10;
+UNION
+SELECT * FROM test12 (ORDER BY <열명>);
+```   
+`UNION` 을 사용하면 중복을 제거한 뒤 값을 나타낸다.   
+`UNION ALL`: 중복 추가   
+```
+SELECT * FROM test10;
+UNION ALL
+SELECT * FROM test12 (ORDER BY <열명>);
+```   
+- 테이블 결합   
+테이블의 집합 연산에서는 행 방향으로 데이터가 늘어나거나 줄어드는 계산 진행했다.   
+이제부터는 열 방향으로 데이터가 늘어가는 방법이다.   
+- 곱집합과 교차결합   
+곱집합   
+![220px-Cartesian_Product_qtl1 svg](https://user-images.githubusercontent.com/47620799/80581038-81032700-8a47-11ea-9270-0df2ba60c301.png)
+교차결합   
+데이터베이스의 테이블은 집합의 한 종류라 볼 수 있다. 만약 `SELECT` 명령의 `FROM` 구에 테이블을 두 개 지정하면 이들은 곱집합으로 계산된다.
+`SELECT * FROM <테이블명1, 테이블명2>;`
+```
+create table test15(x varchar(5) );
+insert into test15 values ('A');
+insert into test15 values ('B');
+insert into test15 values ('C');
+create table test16(y int);
+insert into test16 values (1);
+insert into test16 values (2);
+insert into test16 values (3);
+```   
+`SELECT * FROM test15, test16;`   
+- 내부 결합   
+위의 교차결합에서 두개의 테이블을 사용했지만, 여러개의 테이블도 사용가능하다 하지만 테이블 수가 많아지면 집합이 거대해지므로 교차 결합보다는   
+내부 결합이 자주 사용된다. 교차결합으로 계산된 곱집합에서 원하는 조합을 검색하는 것을 내부결합이라고 한다.   
+```
+CREATE TABLE item(itemno char(4) not null, name varchar(30), maker varchar(30), price int, type varchar(30), primary key(itemno));
+insert into item values (0001, 'airmax', 'nike', 180000, 'shoes');
+insert into item values (0002, 'fury', 'reebok', 230000, 'shoes');
+insert into item values (0003, 'oxford shirt', 'polo', 140000, 'cloth');
+insert into item values (0004, 'short pants', 'tommy', 120000, 'cloth');
+insert into item values (0005, 'black cap', 'nike', 80000, 'cap');
+CREATE TABLE stock(itemno char(4), recipedate DATE, quantity int);
+insert into stock values (0001, '2020-03-21', 14);
+insert into stock values (0002, '2020-02-11', 1);
+insert into stock values (0003, '2020-01-23', 5);
+insert into stock values (0004, '2020-04-21', 4);
+insert into stock values (0005, '2020-04-14', 17);
+SELECT * FROM item, stock;
+```    
+`SELECT * FROM item, stock WHERE item.itemno = stock.itemno;`   
+`SELECT item.name, stock.quantity FROM item, stock WHERE item.itemno = stock.itemno AND item.type='shoes';`   
+- INNER JOIN으로 내부 결합하기   
+최근에는 `INNER JOIN` 키워드를 사용한 결합 방법이 일반적으로 통용된다.   
+`SELECT * FROM <테이블명1> INNER JOIN <테이블명2> ON 결합조건`   
+`SELECT item.itemno, stock.quantity FROM item INNER JOIN stock ON item.itemno=stock.itemno WHERE item.type ='shoes';`
+- 외부결합   
+결합 방법은 크게 내부결합과 외부결합의 두 가지로 구분된다.   
+외부 결합은 어느 한 쪽에만 존재하는 데이터행을 어떻게 다룰지를 변경할 수 있는 결합 방법이다.   
+```
+CREATE TABLE item1(itemno char(4) not null, name varchar(30), maker varchar(30), makerno varchar(10), price int, type varchar(30), primary key(itemno));
+insert into item1 values (0001, 'airmax', 'nike', 'M001',  180000, 'shoes');
+insert into item1 values (0002, 'fury', 'reebok', 'M002', 230000, 'shoes');
+insert into item1 values (0003, 'oxford shirt', 'polo', 'M003', 140000, 'cloth');
+insert into item1 values (0004, 'short pants', 'tommy', 'M004', 120000, 'cloth');
+insert into item1 values (0005, 'black cap', 'nike', 'M001', 80000, 'cap');
+insert into item1 values (0009, 'white cap', 'nike', 'M001', 80000, 'cap');
+CREATE TABLE stock(itemno char(4), recipedate DATE, quantity int);
+insert into stock values (0001, '2020-03-21', 14);
+insert into stock values (0002, '2020-02-11', 1);
+insert into stock values (0003, '2020-01-23', 5);
+insert into stock values (0004, '2020-04-21', 4);
+insert into stock values (0005, '2020-04-14', 17);
+SELECT * FROM item, stock;
+```
+`SELECT item1.name, stock1.quantity FROM item1 INNER JOIN stock1 ON item1.itemno = stock1.itemno WHERE item1.type ='cap';`:내부결합에서는 상품코드 0009인 상품이 제외된다.   
+(재고수 테이블에는 아직 이 상품에 대한 데이터가 없기 떄문이다.)   
+외부결합은 결합하는 테이블 중에 어느 쪽을 기준으로 할지 결정할 수 있다. item1(결합의 왼쪽)을 기준으로 `INNER JOIN` 대신 `LEFT JOIN` 사용한다.   
+`SELECT item1.name, stock1.quantity FROM item1 LEFT JOIN stock1 ON item1.itemno = stock1.itemno WHERE item1.type='cap';`   
+결합의 오른쪽을 기준으로 하고 싶다면 `RIGHT JOIN` 사용한다.   
 
 
