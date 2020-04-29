@@ -513,7 +513,7 @@ SELECT * FROM test12 (ORDER BY <열명>);
 이제부터는 열 방향으로 데이터가 늘어가는 방법이다.   
 - 곱집합과 교차결합   
 곱집합   
-![220px-Cartesian_Product_qtl1 svg](https://user-images.githubusercontent.com/47620799/80581038-81032700-8a47-11ea-9270-0df2ba60c301.png)
+![220px-Cartesian_Product_qtl1 svg](https://user-images.githubusercontent.com/47620799/80581038-81032700-8a47-11ea-9270-0df2ba60c301.png)   
 교차결합   
 데이터베이스의 테이블은 집합의 한 종류라 볼 수 있다. 만약 `SELECT` 명령의 `FROM` 구에 테이블을 두 개 지정하면 이들은 곱집합으로 계산된다.
 `SELECT * FROM <테이블명1, 테이블명2>;`
