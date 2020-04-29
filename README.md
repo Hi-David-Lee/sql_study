@@ -405,6 +405,64 @@ INSERT INTO test10 (a) VALUES (21);
 - 그룹화   
 `GROUP BY` 구를 사용하여 집계 함수로 넘겨줄 집합을 그룹으로 나눈다. 이와 같은 그룹화를 통해 집계함수의 활용범위를 넓힐수 있다.   
 `SELECT * FROM <테이블명> GROUP BY <열1, 열2, ..>`   
+```
+create table test11(no int not null auto_increment primary key, name varchar(10), quantity int);
+INSERT INTO test11 (name, quantity) VALUES ('A', 1);
+INSERT INTO test11 (name, quantity) VALUES ('A', 3);
+INSERT INTO test11 (name, quantity) VALUES ('B', 1);
+INSERT INTO test11 (name, quantity) VALUES ('B', 2);
+INSERT INTO test11 (name, quantity) VALUES ('A', 5);
+INSERT INTO test11 (name, quantity) VALUES ('C', 3);
+SELECT * FROM test11;
+```
+- name 열로 그룹화하기   
+GROUP BY 구에 열을 지정하여 그룹하하면 지정된 열의 값이 같은 행이 하나의 그룹으로 묶인다.   
+`SELECT name FROM test11 GROUP BY name;`   
+- name 열을 그룹화해 계산하기   
+`SELECT name, COUNT(name), SUM(quantity) FROM test11 GROUP BY name;`   
+- HAVING 구로 조건 지정   
+`HAVING` 구를 사용하면 집계함수를 사용하여 조건식을 지정할 수 있다.   
+`SELECT name, COUNT(name) FROM test11 GROUP BY name HAVING COUNT(name) =2;`   
+- 결과 값 정렬   
+`GROUP BY`로 그룹화해도 실행 결과 순서를 정렬할 수는 없다. 하지만, `ORDER BY`를 사용해 정렬할 수 있다.   
+`SELECT name, COUNT(name), SUM(quantity) FROM test11 GROUP BY name ORDER BY SUM(quantity) DESC;`   
+- 서브쿼리   
+서브쿼리는 SELECT 명령에 의한 데이터 질의로, 상부가 아닌 하부의 부수적인 질의를 의미한다.   
+특히, 서브쿼리는 SQL 명령의 `WHERE`구에서 주로 사용된다. `WHERE`구는 `SELECT`, `DELETE`, `UPDATE`구에서 사용한다.   
+- DELETE의 WHERE 구에서 서브쿼리 사용   
+```
+create table test12(a int);
+INSERT INTO test12 (a) VALUES (10);
+INSERT INTO test12 (a) VALUES (20);
+INSERT INTO test12 (a) VALUES (50);
+INSERT INTO test12 (a) VALUES (70);
+INSERT INTO test12 (a) VALUES (90);
+SELECT MIN(a) FROM test12;
+```   
+최솟값을 가지는 행 삭제하기   
+(workbench edit-preferences-sql editor에서 safe updates 체크해제후 진행할 것)   
+`DELETE FROM test12 WHERE a =(SELECT * FROM (SELECT MIN(a) FROM test12) tmp );`   
+- 스칼라 값   
+`SELECT` 명령이 하나의 값만 반환하는 것을 스칼라 값을 반환한다고 한다.   
+서브쿼리의 패턴   
+패턴1 하나의 값을 반환하는 패턴   
+`SELECT MIN(a) FROM test12;`   
+패턴2 복수의 행이 반환되지만 열은 하나인 패턴   
+`SELECT a FROM test12;`   
+패턴3 하나의 행이 반환되지만 열이 복수인 패턴   
+`SELECT MIN(a), MAX(a) FROM test12;`   
+패턴4 복수의 행, 복수의 열이 반환되는 패턴   
+`SELECT * FROM test12;`   
+- SELECT 구에서 서브쿼리 사용   
+`SELECT (SELECT COUNT(*) FROM test12) AS sq1, (SELECT COUNT(*) FROM test11) AS sq2;`   
+- SET 구에서 서브쿼리 사용   
+`UPDATE test12 SET a=(SELECT * FROM (SELECT MAX(a) FROM test12) tmp );`   
+- FROM 구에서 서브쿼리 사용   
+`SELECT * FROM (SELECT * FROM test12)sq;`   
+- INSERT 서브쿼리  
+`create table test13(a int, b int);`   
+`insert into test13 values ( (select count(*) from test11), (select count(*) from test12) );`   
+
 
 
 
