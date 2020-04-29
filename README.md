@@ -76,9 +76,16 @@ CREATE TABLE <이름>
 5. TABLE 삭제   
 `DROP TABLE <Table 명>;`   
 `DROP TABLE test;`   
+`TRUNCATE TABLE <teble 명>;` : 테이블 내의 전체 행 삭제   
 6. TABLE 데이터 입력   
 `INSERT INTO <TABLE 명> (열 이름1, 열 이름2, 열 이름3, ...) VALUES ('값1', '값2', '값3',...);`   
-`INSERT INTO test (name, birthday, address) VALUES ('david', '1991-01-06', 'SungNam, Korea');` 
+`INSERT INTO test (name, birthday, address) VALUES ('david', '1991-01-06', 'SungNam, Korea');`   
+TABLE 변경(추가)   
+`ALTER TABLE <테이블명> <변경명령>;`   
+`ALTER TABLE <테이블명> ADD <열정의>;`: 테이블에 열 추가   
+`ALTER TABLE <테이블명> MODIFY <열 정의>;`:열 속성 변경   
+`ALTER TABLE <테이블명> CHANGE <기존 열이름> <변경 열이름>;`:열의 이름 변경   
+`ALTER TABLE <테이블명> DROP <열명>;`: 열 삭제   
 7. DATABASED 데이터 읽기   
 `SELECT * FROM <TABLE 명>;`   
 `SELECT * FROM test;`   
